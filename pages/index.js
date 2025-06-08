@@ -1,4 +1,3 @@
-// pages/index.js
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -20,7 +19,7 @@ export default function Home() {
         height={120}
         className={`mt-[-40px] transition-transform ${animate ? "animate-bounce-1" : ""}`}
       />
-        <p className="mt-8 text-lg text-center max-w-2xl">
+      <p className="mt-8 text-lg text-center max-w-2xl">
         SDD Shipping provides reliable and innovative maritime services for global logistics.
       </p>
     </div>
