@@ -23,28 +23,30 @@ export default function NavBar() {
           <img src="/logo.png" alt="Logo" className="h-10 w-auto" />
         </Link>
 
-        {/* БУРГЕР ДЛЯ МОБИЛЬНОЙ ВЕРСИИ */}
-        <button
-          className="md:hidden text-gray-800"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle Menu"
-        >
-          <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-            {isOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
-            )}
-          </svg>
-        </button>
+        {/* БУРГЕР ДЛЯ МОБИЛЬНОЙ ВЕРСИИ СПРАВА */}
+        <div className="flex items-center space-x-4">
+          {/* МЕНЮ ДЛЯ ДЕСКТОПА */}
+          <div className="hidden md:flex space-x-4">
+            {menuItems.map(({ href, label }) => (
+              <Link key={href} href={href} className="text-gray-700 hover:text-blue-600 text-sm font-medium">
+                {label}
+              </Link>
+            ))}
+          </div>
 
-        {/* МЕНЮ ДЛЯ ДЕСКТОПА */}
-        <div className="hidden md:flex space-x-4">
-          {menuItems.map(({ href, label }) => (
-            <Link key={href} href={href} className="text-gray-700 hover:text-blue-600 text-sm font-medium">
-              {label}
-            </Link>
-          ))}
+          <button
+            className="md:hidden text-gray-800"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
+          >
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
+              )}
+            </svg>
+          </button>
         </div>
       </div>
 
