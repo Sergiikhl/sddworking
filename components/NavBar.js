@@ -1,3 +1,4 @@
+// components/NavBar.js
 import Link from "next/link";
 import { useState } from "react";
 
@@ -19,7 +20,9 @@ export default function NavBar() {
     <nav className="fixed top-0 left-0 w-full bg-white shadow z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/">
-          <img src="/logo.png" alt="Logo" className="h-10 w-auto" />
+          <a>
+            <img src="/logo.png" alt="Logo" className="h-10 w-auto" />
+          </a>
         </Link>
 
         <button
@@ -50,25 +53,27 @@ export default function NavBar() {
           </svg>
         </button>
 
+        {/* Desktop links */}
         <div className="hidden md:flex space-x-4">
           {links.map(({ href, label }) => (
-            <Link key={href} href={href} className="text-gray-700 hover:text-blue-600">
-              {label}
+            <Link key={href} href={href}>
+              <a className="text-gray-700 hover:text-blue-600">{label}</a>
             </Link>
           ))}
         </div>
       </div>
 
+      {/* Mobile dropdown */}
       {isOpen && (
         <div className="md:hidden px-4 pb-4 space-y-2 bg-white shadow-inner">
           {links.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="block text-gray-800 hover:text-blue-600"
-              onClick={() => setIsOpen(false)}
-            >
-              {label}
+            <Link key={href} href={href}>
+              <a
+                className="block text-gray-800 hover:text-blue-600"
+                onClick={() => setIsOpen(false)}
+              >
+                {label}
+              </a>
             </Link>
           ))}
         </div>
