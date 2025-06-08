@@ -68,7 +68,7 @@ export default function Calculator() {
           onChange={e => setBag({ ...bag, [key]: +e.target.value || 0 })}
           className="w-20 text-center py-1 border-l border-r text-sm"
         />
-        <button onClick={() => setBag(p => ({ ...p, [key]: +(p[key] + 0.1).toFixed(2) }))} className="px-3 text-xl text-gray-600">+</button>
+        <button onClick={() => setBag(p => ({ ...p, [key]: +(p[key] + 0.1).toFixed(2)))} className="px-3 text-xl text-gray-600">+</button>
       </div>
     </div>
   );
@@ -105,8 +105,9 @@ export default function Calculator() {
           </div>
         </section>
 
+        {/* ✅ Обёртка для прокрутки таблицы */}
         <section className="overflow-x-auto w-full mb-10">
-          <table className="min-w-full bg-white rounded-xl shadow-md text-sm">
+          <table className="min-w-full bg-white rounded-xl shadow-md text-sm whitespace-nowrap">
             <thead className="bg-gray-100 text-gray-700">
               <tr>
                 {Object.keys(result.layers[0] || {}).map((col) => (
@@ -124,7 +125,7 @@ export default function Calculator() {
               ))}
             </tbody>
           </table>
-        </div>
+        </section>
       </main>
     </>
   );
