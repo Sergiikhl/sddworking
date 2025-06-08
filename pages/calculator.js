@@ -105,7 +105,7 @@ export default function Calculator() {
           </div>
         </section>
 
-        <div className="overflow-x-auto">
+        <section className="overflow-x-auto w-full mb-10">
           <table className="min-w-full bg-white rounded-xl shadow-md text-sm">
             <thead className="bg-gray-100 text-gray-700">
               <tr>
