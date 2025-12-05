@@ -1,264 +1,245 @@
 // pages/calculator.js
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
+import Head from "next/head";
 
-const HOLD = {
-  length: 62.92,
-  width: 12.82,
-  height: 8.25,
-  aftLen: 6.10,
-  aftH: 2.60,
-  fwdLen: 12.42,
-  fwdH: 4.20,
-  tankW: 2.56,
-};
+export default function CalculatorPage() {
+  const [holdLength, setHoldLength] = useState(60); // m
+  const [holdWidth, setHoldWidth] = useState(12); // m
+  const [holdHeight, setHoldHeight] = useState(8); // m
 
-export default function Calculator() {
-  const [bag, setBag] = useState({ L: 1.10, W: 1.10, H: 1.20 });
-  const [bagWeight, setBagWeight] = useState(1.25);
+  const [bagLength, setBagLength] = useState(1.0); // m
+  const [bagWidth, setBagWidth] = useState(1.0); // m
+  const [bagHeight, setBagHeight] = useState(1.4); // m
+  const [bagWeight, setBagWeight] = useState(1.0); // t
 
-  const result = useMemo(() => {
-    const lenAft = Math.floor(HOLD.aftLen / bag.L);
-    const lenCtr = Math.floor((HOLD.length - HOLD.aftLen - HOLD.fwdLen) / bag.L);
-    const lenFwd = Math.floor(HOLD.fwdLen / bag.L);
+  const [tiers, setTiers] = useState(4);
 
-    const wFull = Math.floor(HOLD.width / bag.W);
-    const wMinus = Math.floor((HOLD.width - 2 * HOLD.tankW) / bag.W);
+  const {
+    bagsPerLayer,
+    totalBags,
+    totalWeight,
+    usedHeight,
+    maxTiersByHeight,
+  } = useMemo(() => {
+    const bagsByLength = Math.floor(holdLength / bagLength) || 0;
+    const bagsByWidth = Math.floor(holdWidth / bagWidth) || 0;
+    const perLayer = bagsByLength * bagsByWidth;
 
-    const maxLayers = Math.floor(HOLD.height / bag.H);
-    let total = 0, layers = [];
+    const maxTiers = Math.floor(holdHeight / bagHeight) || 0;
+    const actualTiers = Math.min(tiers, maxTiers);
+    const total = perLayer * actualTiers;
+    const weight = total * bagWeight;
+    const heightUsed = actualTiers * bagHeight;
 
-    for (let L = maxLayers; L >= 1; L--) {
-      const currentHeight = L * bag.H;
-      const wA = currentHeight > HOLD.aftH ? wFull : wMinus;
-      const wF = currentHeight > HOLD.fwdH ? wFull : wMinus;
-
-      const aft = lenAft * wA;
-      const ctr = lenCtr * wFull;
-      const fwd = lenFwd * wF;
-      const sum = aft + ctr + fwd;
-
-      layers.push({
-        L,
-        'Aft Length': lenAft,
-        'Aft Width': wA,
-        'Aft Total': aft,
-        'Centre Length': lenCtr,
-        'Centre Width': wFull,
-        'Centre Total': ctr,
-        'Fwd Length': lenFwd,
-        'Fwd Width': wF,
-        'Fwd Total': fwd,
-        'Layer Total': sum,
-      });
-      total += sum;
-    }
-
-    return { layers, total, weight: total * bagWeight };
-  }, [bag, bagWeight]);
-
-  const inputField = (label, key) => (
-    <div className="flex items-center justify-between gap-3">
-      <span className="text-sm">{label}</span>
-      <div className="flex items-center border rounded-lg overflow-hidden shadow-sm">
-        <button onClick={() => setBag(p => ({ ...p, [key]: Math.max(0, +(p[key] - 0.1).toFixed(2)) }))} className="px-3 text-xl text-gray-600">−</button>
-        <input
-          type="number"
-          step="0.01"
-          value={bag[key]}
-          onChange={e => setBag({ ...bag, [key]: +e.target.value || 0 })}
-          className="w-20 text-center py-1 border-l border-r text-sm"
-        />
-        <button onClick={() => setBag(p => ({ ...p, [key]: +(p[key] + 0.1).toFixed(2)))} className="px-3 text-xl text-gray-600">+</button>
-      </div>
-    </div>
-  );
+    return {
+      bagsPerLayer: perLayer,
+      totalBags: total,
+      totalWeight: weight,
+      usedHeight: heightUsed,
+      maxTiersByHeight: maxTiers,
+    };
+  }, [holdLength, holdWidth, holdHeight, bagLength, bagWidth, bagHeight, bagWeight, tiers]);
 
   return (
     <>
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center">Big-Bag Loading Calculator</h1>
+      <Head>
+        <title>Big-Bag Calculator – SDD Shipping</title>
+      </Head>
+      <div className="mx-auto max-w-5xl px-4 py-10">
+        <h1 className="text-2xl sm:text-3xl font-semibold mb-2">
+          Big-Bag Loading Calculator
+        </h1>
+        <p className="text-sm text-slate-300 mb-6">
+          Упрощённый калькулятор для оценки количества биг-бэгов в трюме.
+          Здесь важно, чтобы страница стабильно работала — потом можно
+          доработать логику под твои точные схемы (нос/центр/корма, танки и т.д.).
+        </p>
 
-        <section className="grid sm:grid-cols-2 gap-6 bg-white shadow-lg rounded-2xl p-6 mb-10">
-          <div className="space-y-4">
-            {inputField('Length (m)', 'L')}
-            {inputField('Width (m)', 'W')}
-            {inputField('Height (m)', 'H')}
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-sm">Bag Weight (t)</span>
-              <div className="flex items-center border rounded-lg overflow-hidden shadow-sm">
-                <button onClick={() => setBagWeight(p => +(Math.max(0, p - 0.1).toFixed(2)))} className="px-3 text-xl text-gray-600">−</button>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={bagWeight}
-                  onChange={(e) => setBagWeight(+(parseFloat(e.target.value) || 0).toFixed(2))}
-                  className="w-20 text-center py-1 border-l border-r text-sm"
-                />
-                <button onClick={() => setBagWeight(p => +(p + 0.1).toFixed(2))} className="px-3 text-xl text-gray-600">+</button>
-              </div>
+        <div className="grid gap-6 md:grid-cols-2 mb-8">
+          {/* Параметры трюма */}
+          <div className="rounded-xl border border-slate-800 p-4">
+            <h2 className="text-lg font-semibold mb-3">Hold parameters</h2>
+            <FieldNumber
+              label="Length, m"
+              value={holdLength}
+              onChange={setHoldLength}
+              step={0.5}
+            />
+            <FieldNumber
+              label="Width, m"
+              value={holdWidth}
+              onChange={setHoldWidth}
+              step={0.1}
+            />
+            <FieldNumber
+              label="Height, m"
+              value={holdHeight}
+              onChange={setHoldHeight}
+              step={0.1}
+            />
+          </div>
+
+          {/* Параметры биг-бэга */}
+          <div className="rounded-xl border border-slate-800 p-4">
+            <h2 className="text-lg font-semibold mb-3">Big-bag parameters</h2>
+            <FieldNumber
+              label="Length, m"
+              value={bagLength}
+              onChange={setBagLength}
+              step={0.05}
+            />
+            <FieldNumber
+              label="Width, m"
+              value={bagWidth}
+              onChange={setBagWidth}
+              step={0.05}
+            />
+            <FieldNumber
+              label="Height, m"
+              value={bagHeight}
+              onChange={setBagHeight}
+              step={0.05}
+            />
+            <FieldNumber
+              label="Weight, t per bag"
+              value={bagWeight}
+              onChange={setBagWeight}
+              step={0.1}
+            />
+          </div>
+        </div>
+
+        {/* Ярусы */}
+        <div className="mb-8 rounded-xl border border-slate-800 p-4">
+          <h2 className="text-lg font-semibold mb-3">Tiers (ярусы)</h2>
+          <p className="text-xs text-slate-400 mb-2">
+            Максимум по высоте: {maxTiersByHeight} ярусов (по соотношению
+            высота трюма / высота биг-бэга).
+          </p>
+          <FieldNumber
+            label="Number of tiers"
+            value={tiers}
+            onChange={(v) =>
+              v < 1 ? setTiers(1) : setTiers(Math.min(v, maxTiersByHeight || 1))
+            }
+            step={1}
+            min={1}
+            max={8}
+          />
+        </div>
+
+        {/* Итоги */}
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded-xl border border-slate-800 p-4">
+            <h2 className="text-lg font-semibold mb-3">Result</h2>
+            <ul className="space-y-1 text-sm">
+              <li>
+                <span className="text-slate-400">Bags per layer: </span>
+                <span className="font-semibold">{bagsPerLayer}</span>
+              </li>
+              <li>
+                <span className="text-slate-400">Total bags: </span>
+                <span className="font-semibold">{totalBags}</span>
+              </li>
+              <li>
+                <span className="text-slate-400">Total weight, t: </span>
+                <span className="font-semibold">
+                  {totalWeight.toFixed(1)}
+                </span>
+              </li>
+              <li>
+                <span className="text-slate-400">Used height, m: </span>
+                <span className="font-semibold">
+                  {usedHeight.toFixed(2)} / {holdHeight} m
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Простая визуализация */}
+          <div className="rounded-xl border border-slate-800 p-4">
+            <h2 className="text-lg font-semibold mb-3">Top view (simplified)</h2>
+            <p className="text-xs text-slate-400 mb-3">
+              Условная схема сверху: чем больше прямоугольников, тем больше
+              биг-бэгов в слое.
+            </p>
+            <div className="relative h-40 w-full border border-slate-700 rounded-lg bg-slate-900 overflow-hidden">
+              {bagsPerLayer === 0 ? (
+                <div className="flex h-full items-center justify-center text-xs text-slate-500">
+                  Adjust dimensions to fit at least one bag.
+                </div>
+              ) : (
+                <div className="grid h-full w-full"
+                  style={{
+                    gridTemplateColumns: `repeat(${Math.max(
+                      1,
+                      Math.floor(holdLength / bagLength) || 1
+                    )}, minmax(0, 1fr))`,
+                    gridTemplateRows: `repeat(${Math.max(
+                      1,
+                      Math.floor(holdWidth / bagWidth) || 1
+                    )}, minmax(0, 1fr))`,
+                  }}
+                >
+                  {Array.from(
+                    { length: bagsPerLayer },
+                    (_, i) => i
+                  ).map((i) => (
+                    <div
+                      key={i}
+                      className="m-0.5 rounded bg-cyan-500/60"
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-          <div className="flex flex-col justify-center text-lg text-gray-800 text-center sm:text-left">
-            <p><strong>Total Bags:</strong> {result.total.toLocaleString("en-US")}</p>
-            <p><strong>Total Weight (t):</strong> {result.weight.toLocaleString("en-US")}</p>
-            <p><strong>Layers:</strong> {result.layers.length}</p>
-          </div>
-        </section>
-
-        {/* Закрыли предыдущий <section> и начинаем таблицу */}
-        <section className="overflow-x-auto w-full mb-10">
-          <table className="min-w-full bg-white rounded-xl shadow-md text-sm whitespace-nowrap">
-            <thead className="bg-gray-100 text-gray-700">
-              <tr>
-                {Object.keys(result.layers[0] || {}).map((col) => (
-                  <th key={col} className="px-4 py-2 border-b">{col}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="text-gray-800">
-              {result.layers.map((row, idx) => (
-                <tr key={idx} className="even:bg-gray-50">
-                  {Object.values(row).map((cell, i) => (
-                    <td key={i} className="px-4 py-2 border-b text-center">{cell}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-      </main>
+        </div>
+      </div>
     </>
   );
 }
-// pages/calculator.js
-import { useState, useMemo } from 'react';
 
-const HOLD = {
-  length: 62.92,
-  width: 12.82,
-  height: 8.25,
-  aftLen: 6.10,
-  aftH: 2.60,
-  fwdLen: 12.42,
-  fwdH: 4.20,
-  tankW: 2.56,
-};
-
-export default function Calculator() {
-  const [bag, setBag] = useState({ L: 1.10, W: 1.10, H: 1.20 });
-  const [bagWeight, setBagWeight] = useState(1.25);
-
-  const result = useMemo(() => {
-    const lenAft = Math.floor(HOLD.aftLen / bag.L);
-    const lenCtr = Math.floor((HOLD.length - HOLD.aftLen - HOLD.fwdLen) / bag.L);
-    const lenFwd = Math.floor(HOLD.fwdLen / bag.L);
-
-    const wFull = Math.floor(HOLD.width / bag.W);
-    const wMinus = Math.floor((HOLD.width - 2 * HOLD.tankW) / bag.W);
-
-    const maxLayers = Math.floor(HOLD.height / bag.H);
-    let total = 0, layers = [];
-
-    for (let L = maxLayers; L >= 1; L--) {
-      const currentHeight = L * bag.H;
-      const wA = currentHeight > HOLD.aftH ? wFull : wMinus;
-      const wF = currentHeight > HOLD.fwdH ? wFull : wMinus;
-
-      const aft = lenAft * wA;
-      const ctr = lenCtr * wFull;
-      const fwd = lenFwd * wF;
-      const sum = aft + ctr + fwd;
-
-      layers.push({
-        L,
-        'Aft Length': lenAft,
-        'Aft Width': wA,
-        'Aft Total': aft,
-        'Centre Length': lenCtr,
-        'Centre Width': wFull,
-        'Centre Total': ctr,
-        'Fwd Length': lenFwd,
-        'Fwd Width': wF,
-        'Fwd Total': fwd,
-        'Layer Total': sum,
-      });
-      total += sum;
-    }
-
-    return { layers, total, weight: total * bagWeight };
-  }, [bag, bagWeight]);
-
-  const inputField = (label, key) => (
-    <div className="flex items-center justify-between gap-3">
-      <span className="text-sm">{label}</span>
-      <div className="flex items-center border rounded-lg overflow-hidden shadow-sm">
-        <button onClick={() => setBag(p => ({ ...p, [key]: Math.max(0, +(p[key] - 0.1).toFixed(2)) }))} className="px-3 text-xl text-gray-600">−</button>
-        <input
-          type="number"
-          step="0.01"
-          value={bag[key]}
-          onChange={e => setBag({ ...bag, [key]: +e.target.value || 0 })}
-          className="w-20 text-center py-1 border-l border-r text-sm"
-        />
-        <button onClick={() => setBag(p => ({ ...p, [key]: +(p[key] + 0.1).toFixed(2)))} className="px-3 text-xl text-gray-600">+</button>
-      </div>
-    </div>
-  );
+// Вспомогательный компонент для числовых полей с "стрелками"
+function FieldNumber({ label, value, onChange, step = 1, min, max }) {
+  const change = (delta) => {
+    let next = Number(value || 0) + delta;
+    if (typeof min === "number") next = Math.max(min, next);
+    if (typeof max === "number") next = Math.min(max, next);
+    onChange(Number(next.toFixed(3)));
+  };
 
   return (
-    <>
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center">Big-Bag Loading Calculator</h1>
-
-        <section className="grid sm:grid-cols-2 gap-6 bg-white shadow-lg rounded-2xl p-6 mb-10">
-          <div className="space-y-4">
-            {inputField('Length (m)', 'L')}
-            {inputField('Width (m)', 'W')}
-            {inputField('Height (m)', 'H')}
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-sm">Bag Weight (t)</span>
-              <div className="flex items-center border rounded-lg overflow-hidden shadow-sm">
-                <button onClick={() => setBagWeight(p => +(Math.max(0, p - 0.1).toFixed(2)))} className="px-3 text-xl text-gray-600">−</button>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={bagWeight}
-                  onChange={(e) => setBagWeight(+(parseFloat(e.target.value) || 0).toFixed(2))}
-                  className="w-20 text-center py-1 border-l border-r text-sm"
-                />
-                <button onClick={() => setBagWeight(p => +(p + 0.1).toFixed(2))} className="px-3 text-xl text-gray-600">+</button>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center text-lg text-gray-800 text-center sm:text-left">
-            <p><strong>Total Bags:</strong> {result.total.toLocaleString("en-US")}</p>
-            <p><strong>Total Weight (t):</strong> {result.weight.toLocaleString("en-US")}</p>
-            <p><strong>Layers:</strong> {result.layers.length}</p>
-          </div>
-        </section>
-
-        {/* ✅ Обёртка для прокрутки таблицы */}
-        <section className="overflow-x-auto w-full mb-10">
-          <table className="min-w-full bg-white rounded-xl shadow-md text-sm whitespace-nowrap">
-            <thead className="bg-gray-100 text-gray-700">
-              <tr>
-                {Object.keys(result.layers[0] || {}).map((col) => (
-                  <th key={col} className="px-4 py-2 border-b">{col}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="text-gray-800">
-              {result.layers.map((row, idx) => (
-                <tr key={idx} className="even:bg-gray-50">
-                  {Object.values(row).map((cell, i) => (
-                    <td key={i} className="px-4 py-2 border-b text-center">{cell}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-      </main>
-    </>
+    <div className="mb-3 text-sm">
+      <div className="mb-1 flex items-center justify-between">
+        <span>{label}</span>
+        <span className="text-xs text-slate-500">step {step}</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          step={step}
+          className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-1.5 text-sm outline-none focus:border-cyan-400"
+        />
+        <div className="flex flex-col gap-1">
+          <button
+            type="button"
+            onClick={() => change(step)}
+            className="flex h-6 w-7 items-center justify-center rounded-md border border-slate-700 bg-slate-900 text-xs hover:border-cyan-400"
+          >
+            ▲
+          </button>
+          <button
+            type="button"
+            onClick={() => change(-step)}
+            className="flex h-6 w-7 items-center justify-center rounded-md border border-slate-700 bg-slate-900 text-xs hover:border-cyan-400"
+          >
+            ▼
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
