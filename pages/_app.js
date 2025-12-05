@@ -1,14 +1,14 @@
-
+// pages/_app.js
 import "../styles/globals.css";
 import NavBar from "../components/NavBar";
 
-export default function App({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   return (
-    <div>
+    <>
       <NavBar />
-      <div className="pt-20 px-4">
+      <main className="min-h-screen bg-slate-950 text-slate-100 pt-16">
         <Component {...pageProps} />
-      </div>
-    </div>
+      </main>
+    </>
   );
 }
