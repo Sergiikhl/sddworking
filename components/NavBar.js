@@ -48,10 +48,8 @@ export default function NavBar() {
           onClick={() => setOpen((v) => !v)}
           className="inline-flex items-center justify-center rounded-md p-2 md:hidden border border-slate-700"
           aria-label="Toggle navigation menu"
-        {
-          /* этот кусок кода гарантирует что кнопка корректно отрисовывается, а не ломает вёрстку */
-        }
         >
+          {/* этот кусок кода гарантирует что кнопка корректно отрисовывается, а не ломает вёрстку */}
           <span className="block h-0.5 w-5 bg-slate-200 mb-1" />
           <span className="block h-0.5 w-5 bg-slate-200 mb-1" />
           <span className="block h-0.5 w-5 bg-slate-200" />
