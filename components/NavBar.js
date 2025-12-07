@@ -16,33 +16,36 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="navbar-3d sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-4">
-
-        {/* LOGO */}
+    <nav className="navbar-shell sticky top-0 z-30">
+      <div className="max-w-6xl mx-auto flex items-center justify-between py-3 px-4">
+        {/* Логотип */}
         <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.png" className="h-10 w-auto drop-shadow-lg" alt="Logo" />
+          <img
+            src="/logo.png"
+            alt="SDD Shipping"
+            className="h-10 w-auto logo-glow"
+          />
         </Link>
 
-        {/* MOBILE BUTTON */}
+        {/* Кнопка мобильного меню */}
         <button
           type="button"
           onClick={() => setOpen(!open)}
           aria-label="Toggle navigation menu"
           className="flex flex-col items-center justify-center md:hidden"
         >
-          <span className="block h-0.5 w-6 bg-white mb-1 rounded" />
-          <span className="block h-0.5 w-6 bg-white mb-1 rounded" />
-          <span className="block h-0.5 w-6 bg-white rounded" />
+          <span className="block h-0.5 w-6 bg-slate-800 mb-1 rounded" />
+          <span className="block h-0.5 w-6 bg-slate-800 mb-1 rounded" />
+          <span className="block h-0.5 w-6 bg-slate-800 rounded" />
         </button>
 
-        {/* DESKTOP MENU */}
-        <div className="hidden md:flex gap-8 text-sm">
+        {/* Меню для десктопа */}
+        <div className="hidden md:flex gap-4 text-sm">
           {links.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="nav-3d-link"
+              className="nav-link-main"
             >
               {item.label}
             </Link>
@@ -50,15 +53,15 @@ export default function NavBar() {
         </div>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* Мобильное меню */}
       {open && (
-        <div className="md:hidden navbar-3d px-4 py-3 flex flex-col gap-2">
+        <div className="md:hidden border-t border-slate-200 bg-white px-4 pb-3 flex flex-col gap-1">
           {links.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="nav-3d-link"
+              className="nav-link-main py-2"
             >
               {item.label}
             </Link>
