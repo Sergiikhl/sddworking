@@ -1,15 +1,22 @@
+import Head from "next/head";
 
 export default function Services() {
   return (
-    <main className="mx-auto max-w-screen-lg px-6 py-24">
-      <h1 className="text-4xl font-semibold mb-4">Services</h1>
-      <ul className="list-disc pl-5 text-lg text-gray-700 space-y-2">
-        <li>Time and voyage chartering of general cargo vessels</li>
-        <li>Maritime logistics and route optimization</li>
-        <li>Cargo planning, stowage calculation and digital tools</li>
-        <li>Fleet operations and technical management</li>
-        <li>Documentation, agency coordination and P&amp;I compliance</li>
-      </ul>
-    </main>
+    <>
+      <Head>
+        <title>SDD Shipping – Services</title>
+      </Head>
+
+      <main className="max-w-6xl mx-auto py-16 px-4">
+        <h1 className="text-3xl font-bold mb-6 text-gray-900">Services</h1>
+        <ul className="text-gray-700 text-lg space-y-2">
+          <li>• Dry cargo chartering and voyage planning</li>
+          <li>• Commercial management of vessels</li>
+          <li>• Technical support and consultancy</li>
+          <li>• Cargo planning &amp; stowage calculations</li>
+          <li>• Port agency coordination in selected ports</li>
+        </ul>
+      </main>
+    </>
   );
 }
