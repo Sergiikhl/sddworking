@@ -1,3 +1,41 @@
+/* Градиент фона всей страницы */
+body {
+  background: linear-gradient(180deg, #1E2A44 0%, #0D1629 100%);
+  background-attachment: fixed;
+}
+
+/* 3D Навигация */
+.navbar-3d {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 14px 28px;
+  border-radius: 18px;
+
+  /* 3D глубина */
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.18),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.55),
+    0 6px 18px rgba(0, 0, 0, 0.55);
+}
+
+/* Меню — объёмные ссылки */
+.nav-link {
+  color: #ffffff;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  transition: all 0.25s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.15);
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.25),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.6);
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
