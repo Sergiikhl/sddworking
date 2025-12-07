@@ -5,6 +5,10 @@ export default function Home() {
     <>
       <Head>
         <title>SDD Shipping – Maritime Services</title>
+        <meta
+          name="description"
+          content="SDD Shipping – maritime logistics, dry cargo shipping and vessel management focused on the Black Sea and Mediterranean."
+        />
       </Head>
 
       {/* HERO */}
@@ -19,10 +23,16 @@ export default function Home() {
               with a focus on the Black Sea and Mediterranean regions.
             </p>
             <div className="flex gap-4">
-              <a href="#contact" className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-500">
+              <a
+                href="#contact"
+                className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-500"
+              >
                 Contact us
               </a>
-              <a href="#fleet" className="px-5 py-2 border border-gray-400 rounded-lg hover:border-blue-600 hover:text-blue-600">
+              <a
+                href="#fleet"
+                className="px-5 py-2 border border-gray-400 rounded-lg hover:border-blue-600 hover:text-blue-600"
+              >
                 View fleet
               </a>
             </div>
@@ -39,12 +49,14 @@ export default function Home() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="py-12 border-t border-gray-200">
+      <section id="about" className="py-12 border-top border-gray-200">
         <h2 className="text-2xl font-bold mb-4">About Us</h2>
         <p className="text-gray-600 text-lg leading-relaxed max-w-3xl">
-          West Ships is a distinguished maritime services company headquartered in Istanbul.
-          Operating under the SDD Shipping brand, we provide chartering, cargo planning,
-          vessel management and commercial solutions tailored to our partners.
+          West Ships is a distinguished maritime services company headquartered
+          in Istanbul. Operating under the SDD Shipping brand, we provide
+          chartering, cargo planning, vessel management and commercial
+          solutions tailored to our partners in the Black Sea and Mediterranean
+          regions.
         </p>
       </section>
 
@@ -58,7 +70,8 @@ export default function Home() {
             <p className="text-sm text-gray-500 mb-2">General Cargo Vessel</p>
             <p className="text-gray-600">
               Versatile single-decker designed for bulk, breakbulk and project
-              cargoes. Operating mainly in the Black Sea and Mediterranean.
+              cargoes. Operating mainly in the Black Sea and Mediterranean,
+              suitable for various dry cargo trades.
             </p>
           </div>
 
@@ -66,8 +79,9 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-1">M/V BAHAR</h3>
             <p className="text-sm text-gray-500 mb-2">River-Sea Vessel</p>
             <p className="text-gray-600">
-              Suitable for Danube, coastal and inland trading with strong
-              performance on dry bulk and general cargo routes.
+              River-sea type vessel suitable for Danube, coastal and inland
+              trades with strong performance on dry bulk and general cargo
+              routes.
             </p>
           </div>
         </div>
@@ -78,7 +92,8 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-4">Vision</h2>
         <p className="text-gray-600 text-lg max-w-3xl">
           To build a modern, flexible shipping platform connecting niche cargo
-          flows with reliable tonnage, ensuring transparency and performance.
+          flows with reliable tonnage, ensuring transparency, predictable
+          performance and long-term partnerships with our clients.
         </p>
       </section>
 
@@ -86,21 +101,22 @@ export default function Home() {
       <section id="mission" className="py-12 border-t border-gray-200">
         <h2 className="text-2xl font-bold mb-4">Mission</h2>
         <p className="text-gray-600 text-lg max-w-3xl">
-          To operate and manage vessels safely and efficiently while protecting
-          the interests of owners and charterers.
+          To operate and manage vessels safely and efficiently, protect the
+          interests of owners and charterers, and provide practical shipping
+          solutions based on real operational experience both on board and
+          ashore.
         </p>
       </section>
 
       {/* SERVICES */}
       <section id="services" className="py-12 border-t border-gray-200">
         <h2 className="text-2xl font-bold mb-6">Services</h2>
-
         <ul className="text-gray-700 text-lg space-y-2">
-          <li>• Dry cargo chartering</li>
-          <li>• Vessel commercial management</li>
-          <li>• Technical consultancy</li>
-          <li>• Cargo planning & stowage calculations</li>
-          <li>• Port agency coordination</li>
+          <li>• Dry cargo chartering and voyage planning</li>
+          <li>• Commercial management of vessels</li>
+          <li>• Technical support and consultancy</li>
+          <li>• Cargo planning &amp; stowage calculations</li>
+          <li>• Port agency coordination in selected ports</li>
         </ul>
       </section>
 
@@ -121,10 +137,13 @@ export default function Home() {
           />
           <textarea
             placeholder="Your message"
-            rows="4"
+            rows={4}
             className="border border-gray-300 rounded-lg py-2 px-3"
           />
-          <button className="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500"
+          >
             Send
           </button>
         </form>
