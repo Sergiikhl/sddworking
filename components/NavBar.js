@@ -21,7 +21,7 @@ export default function NavBar() {
         {/* Логотип / бренд */}
         <Link href="/" className="flex items-center gap-2">
           <img
-            src="/logo-sdd.png"
+            src="/logo.png"
             alt="SDD Shipping"
             className="h-8 w-auto"
           />
