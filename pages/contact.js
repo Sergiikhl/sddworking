@@ -1,53 +1,39 @@
-// pages/contact.js
-import React from "react";
+import Head from "next/head";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-gradient-to-br from-blue-100 via-white to-purple-100">
-      <form
-        action="https://formspree.io/f/xdkzonke"
-        method="POST"
-        className="w-full max-w-md bg-white shadow-md rounded-xl p-6 space-y-4"
-      >
-        <h2 className="text-2xl font-semibold text-center text-gray-800">Contact Us</h2>
+    <>
+      <Head>
+        <title>SDD Shipping – Contact</title>
+      </Head>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Your Name</label>
+      <main className="max-w-6xl mx-auto py-16 px-4">
+        <h1 className="text-3xl font-bold mb-4 text-gray-900">Contact</h1>
+
+        <form className="grid gap-4 max-w-lg">
           <input
             type="text"
-            name="name"
-            required
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Your name"
+            className="border border-gray-300 rounded-lg py-2 px-3"
           />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Your Email</label>
           <input
             type="email"
-            name="email"
-            required
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Your email"
+            className="border border-gray-300 rounded-lg py-2 px-3"
           />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Message</label>
           <textarea
-            name="message"
-            rows="4"
-            required
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-          ></textarea>
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition"
-        >
-          Send Message
-        </button>
-      </form>
-    </div>
+            placeholder="Your message"
+            rows={4}
+            className="border border-gray-300 rounded-lg py-2 px-3"
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500"
+          >
+            Send
+          </button>
+        </form>
+      </main>
+    </>
   );
 }
