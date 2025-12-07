@@ -1,35 +1,44 @@
-/* --- Градиент фона сайта --- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ====== ГРАДИЕНТ ДЛЯ ВСЕГО ФОНА ====== */
 body {
-  background: linear-gradient(180deg, #1E2A44 0%, #0D1629 100%);
-  background-attachment: fixed;
+  background: linear-gradient(to bottom, #0f1c2e, #091626 40%, #07111f 70%);
+  color: #fff;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
 }
 
-/* --- 3D стеклянный Navbar --- */
-.navbar-3d {
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-
+/* ====== 3D / ОБЪЕМ ДЛЯ НАВБАРА ====== */
+nav {
+  background: linear-gradient(to bottom, #1f2b42, #162235);
   box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.25),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.55),
-    0 6px 18px rgba(0, 0, 0, 0.35);
+    0 4px 10px rgba(0,0,0,0.4),
+    inset 0 -2px 6px rgba(255,255,255,0.07),
+    inset 0 2px 8px rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
-/* Меню ссылки — объёмные */
-.nav-3d-link {
-  color: white;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 10px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.45);
-  transition: all 0.25s ease;
+/* ====== Ссылки в меню ====== */
+nav a {
+  color: #ffffff;
+  font-weight: 500;
+  text-shadow: 0 0 4px rgba(0,0,0,0.4);
 }
 
-.nav-3d-link:hover {
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.35),
-    inset 0 -4px 6px rgba(0, 0, 0, 0.5);
+nav a:hover {
+  color: #9ccaff;
+  text-shadow: 0 0 6px rgba(156, 202, 255, 0.7);
+}
+
+/* ====== Мобильное меню ====== */
+.mobile-menu {
+  background: #1b2436;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+/* ====== Главные заголовки ====== */
+h1, h2, h3 {
+  color: #ffffff;
 }
