@@ -19,16 +19,9 @@ export default function NavBar() {
     <nav className="bg-white border-b border-gray-200">
       <div className="max-w-6xl mx-auto flex items-center justify-between py-4 px-4">
         {/* Логотип / бренд */}
-        <Link href="/" className="flex items-center gap-2">
-          <img
-            src="/logo.png
-            className="h-8 w-auto"
-          />
-          <span className="text-lg font-semibold text-gray-900">
-            SDD Shipping
-          </span>
-        </Link>
-
+       <Link href="/" className="flex items-center gap-2">
+  <img src="/logo.png" className="h-8 w-auto" alt="Logo" />
+</Link>
         {/* Кнопка для мобильного меню */}
         <button
           type="button"
