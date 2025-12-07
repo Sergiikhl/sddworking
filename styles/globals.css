@@ -2,43 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ====== ГРАДИЕНТ ДЛЯ ВСЕГО ФОНА ====== */
+/* Общий фон сайта — светлый, спокойный */
 body {
-  background: linear-gradient(to bottom, #0f1c2e, #091626 40%, #07111f 70%);
-  color: #fff;
-  min-height: 100vh;
-  font-family: 'Inter', sans-serif;
+  background-color: #f5f7fb;
+  color: #111827;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* ====== 3D / ОБЪЕМ ДЛЯ НАВБАРА ====== */
-nav {
-  background: linear-gradient(to bottom, #1f2b42, #162235);
-  box-shadow:
-    0 4px 10px rgba(0,0,0,0.4),
-    inset 0 -2px 6px rgba(255,255,255,0.07),
-    inset 0 2px 8px rgba(0,0,0,0.4);
-  border-bottom: 1px solid rgba(255,255,255,0.12);
+/* ====== Навбар с лёгким объёмом ====== */
+
+.navbar-shell {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
 }
 
-/* ====== Ссылки в меню ====== */
-nav a {
-  color: #ffffff;
+/* Ссылки меню (десктоп и мобила) */
+.nav-link-main {
   font-weight: 500;
-  text-shadow: 0 0 4px rgba(0,0,0,0.4);
+  font-size: 0.9rem;
+  color: #111827;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-nav a:hover {
-  color: #9ccaff;
-  text-shadow: 0 0 6px rgba(156, 202, 255, 0.7);
+.nav-link-main:hover {
+  color: #1d4ed8;
+  background: rgba(191, 219, 254, 0.5);
+  box-shadow: 0 2px 6px rgba(148, 163, 184, 0.6);
 }
 
-/* ====== Мобильное меню ====== */
-.mobile-menu {
-  background: #1b2436;
-  border-top: 1px solid rgba(255,255,255,0.15);
+/* Для активной ссылки, если когда-то захочешь добавить */
+.nav-link-main-active {
+  color: #1d4ed8;
+  background: rgba(191, 219, 254, 0.9);
 }
 
-/* ====== Главные заголовки ====== */
-h1, h2, h3 {
-  color: #ffffff;
+/* Логотип — лёгкая подсветка */
+.logo-glow {
+  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.3));
 }
