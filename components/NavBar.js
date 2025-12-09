@@ -16,7 +16,7 @@ export default function NavBar() {
     <nav className="fixed top-0 left-0 w-full z-30 bg-gradient-to-b from-white to-blue-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
         <Link href="/">
-          <img src="/logo.png" alt="SDD Shipping" className="h-20 w-auto" />
+          <img src="/logo.png" alt="SDD Shipping" className="h-15 w-auto" />
         </Link>
         <ul className="hidden md:flex space-x-8 text-gray-900 font-medium">
           {navItems.map(({ href, label }) => (
