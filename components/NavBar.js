@@ -31,14 +31,14 @@ export default function NavBar() {
         isScrolled ? "shadow-xl" : "shadow-md"
       }`}
     >
-      <div className="bg-white/80 backdrop-blur-md">
+      <div className="bg-gradient-to-b from-blue-100/80 to-white/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto flex items-center justify-between py-3 px-4 md:px-6">
           {/* Logo with new image */}
           <Link href="/" className="flex items-center gap-3">
             <img
               src="/sdd-logo.png"
               alt="SDD Shipping"
-              className="h-8 w-auto md:h-9"
+              className="h-10 w-auto md:h-12"
             />
           </Link>
           {/* Mobile menu button */}
@@ -65,16 +65,16 @@ export default function NavBar() {
             />
           </button>
           {/* Desktop menu */}
-          <div className="hidden md:flex gap-5 text-sm font-medium">
+          <div className="hidden md:flex gap-6 text-base font-medium">
             {links.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="nav-link-main relative px-1.5 py-1 transition-transform duration-150 hover:-translate-y-[1px]"
+                className="nav-link-main relative px-2 py-1 transition-transform duration-150 hover:-translate-y-[1px]"
               >
-                <span className="relative">
+                <span className="relative group">
                   {item.label}
-                  <span className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-[2px] scale-x-0 origin-center rounded-full bg-sky-400/90 transition-transform duration-200 group-hover:scale-x-100" />
+                  <span className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-[2px] scale-x-0 origin-center rounded-full bg-gradient-to-r from-blue-400 to-sky-500 transition-transform duration-200 group-hover:scale-x-100" />
                 </span>
               </Link>
             ))}
@@ -82,7 +82,7 @@ export default function NavBar() {
         </div>
         {/* Mobile menu */}
         {open && (
-          <div className="md:hidden border-t border-slate-200 bg-white px-4 pb-3 flex flex-col gap-1">
+          <div className="md:hidden border-t border-slate-200 bg-white/90 px-4 pb-3 flex flex-col gap-1">
             {links.map((item) => (
               <Link
                 key={item.href}
