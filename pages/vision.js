@@ -1,14 +1,21 @@
+import Head from "next/head";
 
 export default function Vision() {
   return (
-    <main className="mx-auto max-w-screen-lg px-6 py-24">
-      <h1 className="text-4xl font-semibold mb-4">Vision</h1>
-      <p className="text-lg leading-relaxed text-gray-700">
-        SDD Shipping aspires to be a trailblazer in the maritime industry, renowned for our commitment to innovation,
-        social responsibility, and operational excellence. Our vision is to become a beacon of trust and reliability,
-        setting new industry benchmarks in quality, efficiency, and environmental stewardship.
-        We aim to lead by example, driving positive transformation within our sector and beyond.
-      </p>
-    </main>
+    <>
+      <Head>
+        <title>SDD Shipping – Vision</title>
+      </Head>
+
+      <main className="max-w-6xl mx-auto py-16 px-4">
+        <h1 className="text-3xl font-bold mb-4 text-gray-900">Vision</h1>
+        <p className="text-gray-600 text-lg max-w-3xl">
+          To build a modern, flexible shipping platform connecting niche cargo
+          flows with reliable tonnage, ensuring transparency, predictable
+          performance and long-term partnerships with our clients.
+        </p>
+      </main>
+    </>
   );
 }
+

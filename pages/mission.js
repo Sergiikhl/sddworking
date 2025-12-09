@@ -1,14 +1,21 @@
+import Head from "next/head";
 
 export default function Mission() {
   return (
-    <main className="mx-auto max-w-screen-lg px-6 py-24">
-      <h1 className="text-4xl font-semibold mb-4">Mission</h1>
-      <p className="text-lg leading-relaxed text-gray-700">
-        As a distinguished maritime services provider and partner, SDD Shipping is committed to delivering
-        exceptional value to our clients while prioritising sustainability and stakeholder satisfaction.
-        Our mission is to optimise logistical operations and ensure the highest standards of service,
-        all while minimising our environmental impact and empowering global trade efficiency.
-      </p>
-    </main>
+    <>
+      <Head>
+        <title>SDD Shipping – Mission</title>
+      </Head>
+
+      <main className="max-w-6xl mx-auto py-16 px-4">
+        <h1 className="text-3xl font-bold mb-4 text-gray-900">Mission</h1>
+        <p className="text-gray-600 text-lg max-w-3xl">
+          To operate and manage vessels safely and efficiently, protect the
+          interests of owners and charterers, and provide practical shipping
+          solutions based on real operational experience both on board and
+          ashore.
+        </p>
+      </main>
+    </>
   );
 }

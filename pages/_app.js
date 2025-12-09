@@ -1,11 +1,13 @@
 import "../styles/globals.css";
 import NavBar from "../components/NavBar";
 
-export default function App({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100 text-gray-800">
+    <div className="bg-white text-gray-800 min-h-screen">
       <NavBar />
-      <Component {...pageProps} />
+      <main className="max-w-6xl mx-auto px-4 py-10">
+        <Component {...pageProps} />
+      </main>
     </div>
   );
 }

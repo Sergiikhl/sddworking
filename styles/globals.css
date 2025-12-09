@@ -2,11 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-@keyframes bounce-1 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20%); }
+/* Общий фон сайта — светлый, спокойный */
+body {
+  background-color: #f5f7fb;
+  color: #111827;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.animate-bounce-1 {
-  animation: bounce-1 0.6s ease-in-out 1;
+/* ====== Навбар с лёгким объёмом ====== */
+
+.navbar-shell {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+/* Ссылки меню (десктоп и мобила) */
+.nav-link-main {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #111827;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.nav-link-main:hover {
+  color: #1d4ed8;
+  background: rgba(191, 219, 254, 0.5);
+  box-shadow: 0 2px 6px rgba(148, 163, 184, 0.6);
+}
+
+/* Для активной ссылки, если когда-то захочешь добавить */
+.nav-link-main-active {
+  color: #1d4ed8;
+  background: rgba(191, 219, 254, 0.9);
+}
+
+/* Логотип — лёгкая подсветка */
+.logo-glow {
+  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.3));
 }
