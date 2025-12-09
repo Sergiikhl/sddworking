@@ -6,7 +6,7 @@ export default function NavBar() {
       <div className="max-w-6xl mx-auto flex items-center py-3 px-4">
         <Link href="/" className="flex items-center gap-3">
           <img
-            src="/sdd-logo.png"
+            src="/logo.png"
             alt="SDD Shipping"
             className="h-12 w-auto"
           />
