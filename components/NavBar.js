@@ -16,61 +16,55 @@ export default function NavBar() {
     { href: "/calculator", label: "Calculator" },
   ];
 
-  // Лёгкий эффект при скролле – тень усиливается, меню выглядит объёмнее
   useEffect(() => {
-    const onScroll = () => {
+    const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <nav
       className={`sticky top-0 z-30 transition-shadow duration-300 ${
-        isScrolled ? "shadow-2xl" : "shadow-md"
+        isScrolled ? "shadow-xl" : "shadow-md"
       }`}
     >
-      {/* Градиентный фон шапки + лёгкий “стеклянный” эффект */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-sky-900 text-slate-50/90 backdrop-blur-sm">
+      <div className="bg-white/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto flex items-center justify-between py-3 px-4 md:px-6">
-          {/* Логотип SDD SHIPPING вместо старой картинки */}
+          {/* Logo with new image */}
           <Link href="/" className="flex items-center gap-3">
-            <div className="relative flex items-center">
-              <img
-                src="/logo.png" // положи сюда твой логотип SDD SHIPPING
-                alt="SDD Shipping"
-                className="h-10 w-auto md:h-11 drop-shadow-[0_8px_16px_rgba(0,0,0,0.65)]"
-              />
-            </div>
+            <img
+              src="/sdd-logo.png"
+              alt="SDD Shipping"
+              className="h-10 w-auto md:h-11"
+            />
           </Link>
-
-          {/* Кнопка мобильного меню (бургер) */}
+          {/* Mobile menu button */}
           <button
             type="button"
             onClick={() => setOpen((prev) => !prev)}
             aria-label="Toggle navigation menu"
-            className="flex flex-col items-center justify-center gap-[3px] md:hidden rounded-full p-1.5 transition hover:bg-slate-700/60 active:scale-95"
+            className="flex flex-col items-center justify-center gap-[3px] md:hidden rounded-full p-1.5 transition hover:bg-slate-200/70 active:scale-95"
           >
             <span
-              className={`block h-0.5 w-6 rounded-full bg-slate-50 transition-transform duration-200 ${
+              className={`block h-0.5 w-6 rounded-full bg-slate-800 transition-transform duration-200 ${
                 open ? "translate-y-[5px] rotate-45" : ""
               }`}
             />
             <span
-              className={`block h-0.5 w-6 rounded-full bg-slate-50 transition-opacity duration-150 ${
+              className={`block h-0.5 w-6 rounded-full bg-slate-800 transition-opacity duration-150 ${
                 open ? "opacity-0" : "opacity-100"
               }`}
             />
             <span
-              className={`block h-0.5 w-6 rounded-full bg-slate-50 transition-transform duration-200 ${
+              className={`block h-0.5 w-6 rounded-full bg-slate-800 transition-transform duration-200 ${
                 open ? "-translate-y-[5px] -rotate-45" : ""
               }`}
             />
           </button>
-
-          {/* Меню для десктопа */}
+          {/* Desktop menu */}
           <div className="hidden md:flex gap-5 text-sm font-medium">
             {links.map((item) => (
               <Link
@@ -80,23 +74,21 @@ export default function NavBar() {
               >
                 <span className="relative">
                   {item.label}
-                  {/* линия под пунктом меню при ховере */}
                   <span className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-[2px] scale-x-0 origin-center rounded-full bg-sky-400/90 transition-transform duration-200 group-hover:scale-x-100" />
                 </span>
               </Link>
             ))}
           </div>
         </div>
-
-        {/* Мобильное меню */}
+        {/* Mobile menu */}
         {open && (
-          <div className="md:hidden border-t border-slate-600/60 bg-gradient-to-b from-slate-900 via-slate-850 to-slate-900 px-4 pb-3 flex flex-col gap-1">
+          <div className="md:hidden border-t border-slate-200 bg-white px-4 pb-3 flex flex-col gap-1">
             {links.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="nav-link-main py-2 text-slate-50/90"
+                className="nav-link-main py-2"
               >
                 {item.label}
               </Link>
