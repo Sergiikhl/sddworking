@@ -38,7 +38,7 @@ export default function NavBar() {
             <img
               src="/sdd-logo.png"
               alt="SDD Shipping"
-              className="h-10 w-auto md:h-11"
+              className="h-8 w-auto md:h-9"
             />
           </Link>
           {/* Mobile menu button */}
