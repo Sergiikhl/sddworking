@@ -16,13 +16,13 @@ export default function NavBar() {
     <nav className="fixed top-0 left-0 w-full z-30 bg-gradient-to-b from-white to-blue-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6">
         <Link href="/">
-          <img src="/logo.png" alt="SDD Shipping" className="h-6 w-auto" />
+          <img src="/logo.png" alt="SDD Shipping" className="h-10 w-auto" />
         </Link>
         <ul className="hidden md:flex space-x-8 text-gray-900 font-medium">
-          {navItems.map((item) => (
-            <li key={item.href} className="relative group">
-              <Link href={item.href}>{item.label}</Link>
-              <span className="absolute left-0 -bottom-0.5 h-0.5 w-full bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+          {navItems.map(({ href, label }) => (
+            <li key={href} className="relative group">
+              <Link href={href}>{label}</Link>
+              <span className="absolute inset-0 rounded-lg bg-blue-100 opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-200 -z-10"></span>
             </li>
           ))}
         </ul>
