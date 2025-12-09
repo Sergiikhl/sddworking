@@ -2,45 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Общий фон сайта — светлый, спокойный */
+/* Общий фон сайта — тёплый и светлый */
 body {
-  background-color: #f5f7fb;
-  color: #111827;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #fdf8f4;
+  color: #1f2937;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ====== Навбар с лёгким объёмом ====== */
-
 .navbar-shell {
-  background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
-  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+  background: linear-gradient(180deg, #fffefc 0%, #f7f3eb 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(200, 200, 200, 0.2);
+  backdrop-filter: blur(10px);
 }
 
-/* Ссылки меню (десктоп и мобила) */
+/* Ссылки меню */
 .nav-link-main {
   font-weight: 500;
   font-size: 0.9rem;
-  color: #111827;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.nav-link-main:hover {
-  color: #1d4ed8;
-  background: rgba(191, 219, 254, 0.5);
-  box-shadow: 0 2px 6px rgba(148, 163, 184, 0.6);
-}
-
-/* Для активной ссылки, если когда-то захочешь добавить */
-.nav-link-main-active {
-  color: #1d4ed8;
-  background: rgba(191, 219, 254, 0.9);
-}
-
-/* Логотип — лёгкая подсветка */
-.logo-glow {
-  filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.3));
 }
