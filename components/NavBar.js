@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const links = [
     { href: "/", label: "Home" },
@@ -15,59 +16,94 @@ export default function NavBar() {
     { href: "/calculator", label: "Calculator" },
   ];
 
+  // Лёгкий эффект при скролле – тень усиливается, меню выглядит объёмнее
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="navbar-shell sticky top-0 z-30">
-      <div className="max-w-6xl mx-auto flex items-center justify-between py-3 px-4">
-        {/* Логотип */}
-        <Link href="/" className="flex items-center gap-2">
-          <img
-            src="/logo.png"
-            alt="SDD Shipping"
-            className="h-10 w-auto logo-glow"
-          />
-        </Link>
+    <nav
+      className={`sticky top-0 z-30 transition-shadow duration-300 ${
+        isScrolled ? "shadow-2xl" : "shadow-md"
+      }`}
+    >
+      {/* Градиентный фон шапки + лёгкий “стеклянный” эффект */}
+      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-sky-900 text-slate-50/90 backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto flex items-center justify-between py-3 px-4 md:px-6">
+          {/* Логотип SDD SHIPPING вместо старой картинки */}
+          <Link href="/" className="flex items-center gap-3">
+            <div className="relative flex items-center">
+              <img
+                src="/logo.png" // положи сюда твой логотип SDD SHIPPING
+                alt="SDD Shipping"
+                className="h-10 w-auto md:h-11 drop-shadow-[0_8px_16px_rgba(0,0,0,0.65)]"
+              />
+            </div>
+          </Link>
 
-        {/* Кнопка мобильного меню */}
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle navigation menu"
-          className="flex flex-col items-center justify-center md:hidden"
-        >
-          <span className="block h-0.5 w-6 bg-slate-800 mb-1 rounded" />
-          <span className="block h-0.5 w-6 bg-slate-800 mb-1 rounded" />
-          <span className="block h-0.5 w-6 bg-slate-800 rounded" />
-        </button>
+          {/* Кнопка мобильного меню (бургер) */}
+          <button
+            type="button"
+            onClick={() => setOpen((prev) => !prev)}
+            aria-label="Toggle navigation menu"
+            className="flex flex-col items-center justify-center gap-[3px] md:hidden rounded-full p-1.5 transition hover:bg-slate-700/60 active:scale-95"
+          >
+            <span
+              className={`block h-0.5 w-6 rounded-full bg-slate-50 transition-transform duration-200 ${
+                open ? "translate-y-[5px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-6 rounded-full bg-slate-50 transition-opacity duration-150 ${
+                open ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-6 rounded-full bg-slate-50 transition-transform duration-200 ${
+                open ? "-translate-y-[5px] -rotate-45" : ""
+              }`}
+            />
+          </button>
 
-        {/* Меню для десктопа */}
-        <div className="hidden md:flex gap-4 text-sm">
-          {links.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="nav-link-main"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {/* Меню для десктопа */}
+          <div className="hidden md:flex gap-5 text-sm font-medium">
+            {links.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="nav-link-main relative px-1.5 py-1 transition-transform duration-150 hover:-translate-y-[1px]"
+              >
+                <span className="relative">
+                  {item.label}
+                  {/* линия под пунктом меню при ховере */}
+                  <span className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-[2px] scale-x-0 origin-center rounded-full bg-sky-400/90 transition-transform duration-200 group-hover:scale-x-100" />
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
+
+        {/* Мобильное меню */}
+        {open && (
+          <div className="md:hidden border-t border-slate-600/60 bg-gradient-to-b from-slate-900 via-slate-850 to-slate-900 px-4 pb-3 flex flex-col gap-1">
+            {links.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="nav-link-main py-2 text-slate-50/90"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
-
-      {/* Мобильное меню */}
-      {open && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 pb-3 flex flex-col gap-1">
-          {links.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="nav-link-main py-2"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      )}
     </nav>
   );
 }
